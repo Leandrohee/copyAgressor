@@ -77,7 +77,7 @@ def clicaVenda():
 def clicaZerar():
     botaoZerar = pa.locateOnScreen("./imgs/botaoZerar.png", confidence=0.9)
     zerarEsq, zerarTop, zerarLarg, zerarAlt = botaoZerar
-    pa.moveTo(zerarEsq + 20, zerarTop + 7)
+    pa.leftClick(zerarEsq + 20, zerarTop + 7)
 
 def moveProCentro():
     pa.moveTo(600, 600)
@@ -87,24 +87,47 @@ def entraPosicao():
         posicao = verificaPosicao()
         fotoSaldo = printaCorSaldo()
         fotoPorc = printaCorPorc()
-        corSaldo =  verificaCor(fotoSaldo)
+        corSaldo = verificaCor(fotoSaldo)
         corPorc = verificaCor(fotoPorc)
 
         print(f"posicao: {posicao}, corSaldo: {corSaldo}, corPorc: {corPorc}")
 
         if (posicao == "zerado" and corSaldo == "verde" and corPorc == "azul"):
-            clicaCompra()
+            clicaCompra()                  # Correto
+            #clicaVenda()                    # Contrário
             moveProCentro()
         elif (posicao == "zerado" and corSaldo == "vermelho" and corPorc == "azul"):
-            clicaVenda()
+            clicaVenda()                   # Correto
+            #clicaCompra()                   # Contrário
             moveProCentro()
-        elif (posicao == "comprado" and corSaldo == "vermelho" and corPorc == "azul"):
+        elif (posicao == "comprado" and corSaldo == "vermelho"):
             clicaZerar()
-            clicaVenda()
             moveProCentro()
-        elif (posicao == "vendido" and corSaldo == "verde" and corPorc == "azul"):
+        elif (posicao == "vendido" and corSaldo == "verde"):
             clicaZerar()
-            clicaCompra()
             moveProCentro()
+        # elif (posicao == "comprado" and corSaldo == "vermelho" and corPorc == "azul"):     # Correto
+        # # elif (posicao == "comprado" and corSaldo == "verde" and corPorc == "azul"):         # Contrario
+        #     clicaZerar()
+        #     clicaVenda()
+        #     moveProCentro()
+        # elif (posicao == "vendido" and corSaldo == "verde" and corPorc == "azul"):          # Correto
+        # # elif (posicao == "vendido" and corSaldo == "vermelho" and corPorc == "azul"):        # Contrario
+        #     clicaZerar()
+        #     clicaCompra()
+        #     moveProCentro()
+
+
+def testeComandos():
+    print(f"Posicao: {verificaPosicao()}")
+    print(f"Cor do saldo: {verificaCor(printaCorSaldo())}")
+    print(f"Cor da porcentagem: {verificaCor(printaCorPorc())}")
+    botaoComprar = pa.locateOnScreen("./imgs/botaoComprar.png", confidence=0.9)
+    print(f"botaoComprar: {botaoComprar}")
+    botaoVender = pa.locateOnScreen("./imgs/botaoVender.png", confidence=0.9)
+    print(f"botaoVender: {botaoVender}")
+    botaoZerar = pa.locateOnScreen("./imgs/botaoZerar.png", confidence=0.9)
+    print(f"botaoZerar: {botaoZerar}")
 
 entraPosicao()
+#testeComandos()
