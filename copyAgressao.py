@@ -5,13 +5,13 @@ import time
 # time.sleep(2)
 # print(pa.position())
 
-saldoRegiao = pa.locateOnScreen("./imgs/ref.png",confidence=0.9)
+saldoRegiao = pa.locateOnScreen("./imgs/referencia.png",confidence=0.9)                                # Regiao referencia no excell
 regiaoEsq,regiaoSup,larg,alt = saldoRegiao
 
-def printaCorSaldo():
+def printaCorSaldo():                                                                                  # Tira um print da cor do saldo
     corSaldo = pshot.grab(bbox=(regiaoEsq, regiaoSup + 30, regiaoEsq + 20, regiaoSup + 50))
     corSaldo.save("./imgs/saldo.png")
-    return corSaldo                     # Retorna o print da cor do Saldo
+    return corSaldo                                                                                   # Retorna o print da cor do Saldo
 
 def printaCorPorc():
     corPorc = pshot.grab(bbox=(regiaoEsq + 200, regiaoSup + 30, regiaoEsq + 220, regiaoSup + 50))
@@ -131,3 +131,4 @@ def testeComandos():
 
 entraPosicao()
 #testeComandos()
+# entraPosicao()
