@@ -2,16 +2,18 @@ import pyscreenshot as pshot
 import pyautogui as pa
 import time
 
+
+
 # time.sleep(2)
 # print(pa.position())
 
 def pegaRefPosicao():
-    refPosicao = pa.locateOnScreen('./imgs/referenciaPosicao.png',confidence=0.9)
+    refPosicao = pa.locateOnScreen('./imgs/referenciaPosicaoMac.png',confidence=0.9)        # Tela Mac
+    # refPosicao = pa.locateOnScreen('./imgs/referenciaPosicao.png', confidence=0.9)          # Tela Pc cemev
     return refPosicao
 
 def minhaPosicao():
     left, top, width, height = pegaRefPosicao()
-
 
     comprado =  pa.locateOnScreen('./imgs/comprado.png',confidence=0.8,region=(left,top,200,100))
     vendido =  pa.locateOnScreen('./imgs/vendido.png',confidence=0.8,region=(left,top,200,100))
@@ -26,9 +28,13 @@ def minhaPosicao():
         return "problema"
 
 def printSaldoCorretoras():
-    referenciaSaldo = pa.locateOnScreen('./imgs/referenciaSaldo.png',confidence=0.8)
+    # referenciaSaldo = pa.locateOnScreen('./imgs/referenciaSaldo.png',confidence=0.8)            # Tela Pc cemev
+    referenciaSaldo = pa.locateOnScreen('./imgs/referenciaSaldoMac.png',confidence=0.8)         # Tela Pc Mac
+
     left,top,width, height = referenciaSaldo
-    corSaldo = pshot.grab(bbox=(left, top + 30, left + 20, top + 50))                       # 20x20
+    corSaldo = pshot.grab(bbox=(left, top + 30, left + 20, top + 50))                       # 20x20 - Tela Pc
+    corSaldo = pshot.grab(bbox=(left, top + 50, left + 20, top + 70))                       # 20x20 - Tela Pc
+
     corSaldo.save("./imgs/saldo.png")
 
     return corSaldo
@@ -61,17 +67,20 @@ def corSaldoCorretora(foto):
         return "branco"
 
 def clicaCompra():
-    botaoComprar = pa.locateOnScreen("./imgs/botaoComprar.png",confidence=0.9)
+    # botaoComprar = pa.locateOnScreen("./imgs/botaoComprar.png",confidence=0.9)                # Tela Pc
+    botaoComprar = pa.locateOnScreen("./imgs/comprarMac.png",confidence=0.9)              # Tela Mac
     comprarEsq, comprarTop,comprarLarg, comprarAlt = botaoComprar
     pa.leftClick(comprarEsq+20,comprarTop+7)
 
 def clicaVenda():
-    botaoVender = pa.locateOnScreen("./imgs/botaoVender.png", confidence=0.9)
+    # botaoVender = pa.locateOnScreen("./imgs/botaoVender.png", confidence=0.9)                 # Tela Pc
+    botaoVender = pa.locateOnScreen("./imgs/venderMac.png", confidence=0.9)             # Tela Mac
     venderEsq,venderTop, venderLarg, venderAlt = botaoVender
     pa.leftClick(venderEsq + 20, venderTop + 7)
 
 def clicaZerar():
-    botaoZerar = pa.locateOnScreen("./imgs/botaoZerar.png", confidence=0.9)
+    # botaoZerar = pa.locateOnScreen("./imgs/botaoZerar.png", confidence=0.9)               # Tela Pc
+    botaoZerar = pa.locateOnScreen("./imgs/zerarMac.png", confidence=0.9)               # Tela Mac
     zerarEsq, zerarTop, zerarLarg, zerarAlt = botaoZerar
     pa.leftClick(zerarEsq + 20, zerarTop + 7)
 
@@ -100,9 +109,13 @@ def entrarPosicao():
 
 
 def verificaComponetens():
-    botaoComprar = pa.locateOnScreen("./imgs/botaoComprar.png", confidence=0.9)
-    botaoVender = pa.locateOnScreen("./imgs/botaoVender.png", confidence=0.9)
-    botaoZerar = pa.locateOnScreen("./imgs/botaoZerar.png", confidence=0.9)
+    # botaoComprar = pa.locateOnScreen("./imgs/botaoComprar.png", confidence=0.9)           # Tela Pc
+    # botaoVender = pa.locateOnScreen("./imgs/botaoVender.png", confidence=0.9)             # Tela Pc
+    # botaoZerar = pa.locateOnScreen("./imgs/botaoZerar.png", confidence=0.9)               # Tela Pc
+
+    botaoComprar = pa.locateOnScreen("./imgs/comprarMac.png", confidence=0.9)       # Tela Mac
+    botaoVender = pa.locateOnScreen("./imgs/venderMac.png", confidence=0.9)         # Tela Mac
+    botaoZerar = pa.locateOnScreen("./imgs/zerarmac.png", confidence=0.9)           # Tela Mac
 
     print(f" A referencia da posicao esta em: {pegaRefPosicao()}")
     print(f"A minha posicao é: {minhaPosicao()}")
@@ -111,4 +124,5 @@ def verificaComponetens():
     print(f"O botao vender esta em: {botaoVender}")
     print(f"O botao zerar esta em: {botaoZerar}")
 
-entrarPosicao()
+verificaComponetens()
+# entrarPosicao()
